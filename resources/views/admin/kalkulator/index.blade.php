@@ -8,21 +8,22 @@
                     <h5>Kalkulator KPR</h5>
                 </div>
                 <div class="card-body">
-                    <form class="needs-validation" novalidate="">
+                    <form class="needs-validation" novalidate="" method="post" action="hitung">
+                        @csrf
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <label for="jumlahPinjaman">Jumlah Pinjaman</label>
-                                <input class="form-control" id="jumlahPinjaman" type="text" placeholder="Jumlah Pinjaman" required="">
+                                <input class="form-control" id="jumlahPinjaman" name="besar_pinjam" type="text" placeholder="Jumlah Pinjaman" required="">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="lamaAngsuran">Lama Angsuran (Bulan)</label>
-                                <input class="form-control" id="lamaAngsuran" type="text" placeholder="Lama Angsuran (Bulan)" required="">
+                                <input class="form-control" id="lamaAngsuran" name="jangka" type="text" placeholder="Lama Angsuran (Bulan)" required="">
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="validationCustomUsername">Bunga</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text" id="inputGroupPrepend">%</span></div>
-                                    <input class="form-control" id="validationCustomUsername" type="text" placeholder="Bunga" aria-describedby="inputGroupPrepend" required="">
+                                    <input class="form-control" id="validationCustomUsername" name="bunga" type="text" placeholder="Bunga" aria-describedby="inputGroupPrepend" required="">
                                 </div>
                             </div>
                         </div>

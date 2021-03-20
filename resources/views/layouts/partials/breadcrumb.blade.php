@@ -31,15 +31,41 @@
                         <li class="breadcrumb-item">Kelola Akun</li>
                         <li class="breadcrumb-item">Admin</li>
                     @endif
-                    @if(request()->is('admin/account/customer'))
+                    @if(request()->is('admin/account/user'))
                         <li class="breadcrumb-item">Kelola Akun</li>
-                        <li class="breadcrumb-item">Customer</li>
+                        <li class="breadcrumb-item">User</li>
                     @endif
-                    @if(request()->is('admin/account/boss'))
+                    @if(request()->is('admin/pangkat'))
                         <li class="breadcrumb-item">Kelola Akun</li>
+                        <li class="breadcrumb-item">Pangkat</li>
                     @endif
-                    @if(request()->is('admin/account/boss'))
+                    @if(request()->is('admin/account/verifikasi'))
                         <li class="breadcrumb-item">Kelola Akun</li>
+                        <li class="breadcrumb-item">Verifikasi</li>
+                    @endif
+                    @if(request()->is('admin/rekapdata/Bulan'))
+                        <li class="breadcrumb-item">Rekap Data</li>
+                        <li class="breadcrumb-item">Bulan</li>
+                    @endif
+                    @if(request()->is('admin/rekapdata/Tahun'))
+                        <li class="breadcrumb-item">Rekap Data</li>
+                        <li class="breadcrumb-item">Tahun</li>
+                    @endif
+                    @if(request()->is('admin/detaildata/AngsuranKe'))
+                        <li class="breadcrumb-item">Detail Data</li>
+                        <li class="breadcrumb-item">Angsuran Ke</li>
+                    @endif
+                    @if(request()->is('admin/detaildata/Pokok'))
+                        <li class="breadcrumb-item">Detail Data</li>
+                        <li class="breadcrumb-item">Pokok</li>
+                    @endif
+                    @if(request()->is('admin/detaildata/Bunga'))
+                        <li class="breadcrumb-item">Detail Data</li>
+                        <li class="breadcrumb-item">Bunga</li>
+                    @endif
+                    @if(request()->is('admin/detaildata/SisaAngsuran'))
+                        <li class="breadcrumb-item">Detail Data</li>
+                        <li class="breadcrumb-item">Siswa Angsuran</li>
                     @endif
                 </ol>
             </div>
