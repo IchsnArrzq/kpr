@@ -107,6 +107,7 @@
                             <th>Angsuran ke</th>
                             <th>Angsuran Pokok</th>
                             <th>Angsuran Bunga</th>
+                            <th>Besar Angsuran</th>
                             <th>Sisa Pinjaman Pokok</th>
                         </tr>
                         @php
@@ -117,6 +118,7 @@
                             <td>{{ $no++ }}</td>
                             <td>{{ $all['bunga'][$index] }}</td>
                             <td>{{ $all['pokok'][$index] }}</td>
+                            <td>{{ number_format($all['besar_angsuran'][$index], 0,',','.') }}</td>
                             <td>{{ $all['pinjaman'][$index] }}</td>
                         </tr>
                         @endforeach

@@ -41,7 +41,7 @@
                         @foreach ($pangkats as $pangkat)
                             <option value="{{ $pangkat->id }}">{{ $pangkat->pangkat }}</option>
                         @endforeach
-                        @error('pangkat_id')
+                        @error('pangkat')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

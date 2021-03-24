@@ -1,3 +1,5 @@
+
+text/x-generic home.blade.php ( ASCII text )
 @extends('layouts.app', ['title' => 'KPR | Home'])
 @section('content')
 <div class="container-fluid">
@@ -14,7 +16,7 @@
     @endif
     @if(auth()->user()->role == "3" && auth()->user()->email_verified_at != null)
     <div class="card p-3">
-        <h1 class="badge badge-warning">Akun anda sedang di pending</h1>
+        <h1 class="badge badge-warning">Akun anda sedang dalam proses verifikasi</h1>
     </div>
     @endif
     @if(auth()->user()->role == "2" || auth()->user()->email_verified_at != null)
@@ -24,6 +26,7 @@
         </div>
         <div class="card-body">
             <form class="f1" method="post">
+                @csrf
                 <div class="f1-steps">
                     <div class="f1-progress">
                         <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="3"></div>
@@ -118,61 +121,37 @@
     @if(auth()->user()->role == "0" || auth()->user()->role == "1")
     <div class="row second-chart-list third-news-update">
         <div class="col-xl-9 xl-100 chart_data_left box-col-12">
-            <div class="card">
-                <div class="card-body p-0">
-                    <div class="row m-0 chart-main">
-                        <div class="col-xl-3 col-md-6 col-sm-6 p-0 box-col-6">
-                            <div class="media align-items-center">
-                                <div class="hospital-small-chart">
-                                    <div class="small-bar">
-                                        <div class="small-chart flot-chart-container"></div>
-                                    </div>
-                                </div>
-                                <div class="media-body">
-                                    <div class="right-chart-content">
-                                        <h4>{{ $pangkats }}</h4><span><u>Pangkat</u></span>
-                                    </div>
-                                </div>
+            <h5>Rekap Data</h5>
+                <div class="card">
+                    <div class="card-body p-5">
+                        <div class="row m-0 chart-main">
+                            <div class="col-md-4">
+                                <h4>{{ "Rp." . number_format($totaltunggakan, 0,',','.') }}</h4><span><u>Total Tunggakan</u></span>
+                            </div>
+                            <div class="col-md-4">
+                                 <h4>{{ $user }}</h4><span><u>Total Customer</u></span>
+                            </div>
+                            <div class="col-md-4">
+                               <h4>{{ "Rp." . number_format($jumlahpinjaman, 0,',','.') }}</h4><span><u>Total Pinjaman</u></span>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md-6 col-sm-6 p-0 box-col-6">
-                            <div class="media align-items-center">
-                                <div class="hospital-small-chart">
-                                    <div class="small-bar">
-                                        <div class="small-chart1 flot-chart-container"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-9 xl-100 chart_data_left box-col-12">
+                <h5>Rekap Tahun Ini</h5>
+                <div class="card">
+                    <div class="card-body p-5">
+                        <div class="row m-0 chart-main">
+                             <div class="col-md-4">
+                                        <h4>{{ "Rp." . number_format($totaltunggakantahun, 0,',','.') }}</h4><span><u>Total Tunggakan</u></span>
                                     </div>
-                                </div>
-                                <div class="media-body">
-                                    <div class="right-chart-content">
-                                        <h4>{{ $user }}</h4><span><u>User</u></span>
+                                    <div class="col-md-4">
+                                        <h4>{{ $user }}</h4><span><u>Total Customer</u></span>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6 col-sm-6 p-0 box-col-6">
-                            <div class="media align-items-center">
-                                <div class="hospital-small-chart">
-                                    <div class="small-bar">
-                                        <div class="small-chart2 flot-chart-container"></div>
-                                    </div>
-                                </div>
-                                <div class="media-body">
-                                    <div class="right-chart-content">
-                                        <h4>{{ $admin }}</h4><span><u>Admin</u></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6 col-sm-6 p-0 box-col-6">
-                            <div class="media border-none align-items-center">
-                                <div class="hospital-small-chart">
-                                    <div class="small-bar">
-                                        <div class="small-chart3 flot-chart-container"></div>
-                                    </div>
-                                </div>
-                                <div class="media-body">
-                                    <div class="right-chart-content">
-                                        <h4>{{ $pengelola }}</h4><span><u>Pengelola</u></span>
+                                    <div class="col-md-4">
+                                       <h4>{{ "Rp." . number_format($jumlahpinjamantahun, 0,',','.') }}</h4><span><u>Total Pinjaman</u></span>
                                     </div>
                                 </div>
                             </div>
@@ -180,27 +159,27 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xl-8 xl-100 dashboard-sec box-col-12">
-            <div class="card earning-card">
-                <div class="card-body p-0">
-                    <div class="row m-0">
-                        <div class="col-xl-3 earning-content p-0">
-                            <div class="row m-0 chart-left">
-                                <div class="col-xl-12 p-0 left_side_earning">
-                                    <h5>Dashboard</h5>
+
+            <div class="col-xl-8 xl-100 dashboard-sec box-col-12">
+                <div class="card earning-card">
+                    <div class="card-body p-0">
+                        <div class="row m-0">
+                            <div class="col-xl-3 earning-content p-0">
+                                <div class="row m-0 chart-left">
+                                    <div class="col-xl-12 p-0 left_side_earning">
+                                        <h5>Rekap User</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xl-12 col-md-12 box-col-12">
-                              <div class="card-body chart-block">
-                                <canvas id="myBarGraph"></canvas>
-                              </div>
+                            <div class="col-xl-12 col-md-12 box-col-12">
+                                  <div class="card-body chart-block">
+                                    <canvas id="myBarGraph"></canvas>
+                                  </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
     @endif
 </div>
@@ -213,7 +192,7 @@
         type: 'bar',
 // The data for our dataset
         data: {
-            labels: ["Admin", "User Terverifikasi", "Belum Verifikasi", "Pengelola"],
+            labels: ["Admin", "Belum Verifikasi","User Terverifikasi", "Pengelola"],
             datasets: [
                 {
                     label: 'Status Verifikasi User',
@@ -257,3 +236,4 @@
     });
     </script>
 @endpush
+

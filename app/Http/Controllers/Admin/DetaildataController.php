@@ -6,6 +6,7 @@ use App\Detailkpr;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Pinjaman;
+use Carbon\Carbon;
 use PDF;
 
 class DetaildataController extends Controller
@@ -78,8 +79,6 @@ class DetaildataController extends Controller
     {
 
         $kpr = Detailkpr::find($id);
-
-
         $besar_pinjaman = $kpr->pinjaman;
         $bunga = 6;
         $jangka = $kpr->jk_waktu;
@@ -102,10 +101,11 @@ class DetaildataController extends Controller
         $array1 = [0 => null];
         $array2 = [0 => null];
         $array3 = [0 => intval($besar_pinjaman)];
+        $array4 =[0 => 0];
         $no = 1;
         $angsuran_bunga = $besar_pinjaman * $bungapersen / 12;
         $angsuran_pokok = $besar_angsuran - $angsuran_bunga;
-        for ($i = 1; $i < $jangka; $i++) {
+        for ($i = 1; $i < $kpr->angsuran_masuk; $i++) {
 
             if ($no == 13) {
                 $ang_bunga = $besar_pinjaman * $bungapersen / 12;
@@ -116,7 +116,7 @@ class DetaildataController extends Controller
             $no++;
             array_push($array1, $angsuran_bunga);
             array_push($array2, $angsuran_pokok);
-
+            array_push($array4, $besar_angsuran);
 
             $besar_pinjaman -= $array2[$i];
             array_push($array3, $besar_pinjaman);
@@ -126,6 +126,7 @@ class DetaildataController extends Controller
             'bunga' => $array1,
             'pokok' => $array2,
             'pinjaman' => $array3,
+            'besar_angsuran' => $array4
         ];
         return view('admin.datapinjaman.approve.show',[
             'kpr' => $kpr,
@@ -137,6 +138,7 @@ class DetaildataController extends Controller
     {
 
         $kpr = Detailkpr::find($id);
+
         $besar_pinjaman = $kpr->pinjaman;
         $bunga = 6;
         $jangka = $kpr->jk_waktu;
@@ -149,6 +151,7 @@ class DetaildataController extends Controller
         $fax = ($bungapersen * $c) / $d;
         $anuitas = round($fax, 6);
 
+
         $besar_angsur = ($besar_pinjaman * $anuitas) / 12;
         $besar_angsuran = round($besar_angsur, -2) + 100;
         // if (substr($a, -2) >= 1) {
@@ -159,10 +162,11 @@ class DetaildataController extends Controller
         $array1 = [0 => null];
         $array2 = [0 => null];
         $array3 = [0 => intval($besar_pinjaman)];
+        $array4 = [0 => 0];
         $no = 1;
         $angsuran_bunga = $besar_pinjaman * $bungapersen / 12;
         $angsuran_pokok = $besar_angsuran - $angsuran_bunga;
-        for ($i = 1; $i < $jangka; $i++) {
+        for ($i = 1; $i < $kpr->angsuran_masuk; $i++) {
 
             if ($no == 13) {
                 $ang_bunga = $besar_pinjaman * $bungapersen / 12;
@@ -173,7 +177,7 @@ class DetaildataController extends Controller
             $no++;
             array_push($array1, $angsuran_bunga);
             array_push($array2, $angsuran_pokok);
-
+            array_push($array4, $besar_angsuran);
 
             $besar_pinjaman -= $array2[$i];
             array_push($array3, $besar_pinjaman);
@@ -183,10 +187,12 @@ class DetaildataController extends Controller
             'bunga' => $array1,
             'pokok' => $array2,
             'pinjaman' => $array3,
+            'besar_angsuran' => $array4
         ];
         $pdf = PDF::loadview('admin.datapinjaman.pdf', [
             'kpr' => $kpr,
-            'all' => $array_all
+            'all' => $array_all,
+            'tanggal' => Carbon::now()
         ]);
         return $pdf->stream();
     }

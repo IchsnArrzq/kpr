@@ -47,7 +47,7 @@
                         <tbody>
                             <tr>
                             <th>{{ $loop->iteration }}</th>
-                                <td>{{ $pinjam->nama }}</td>
+                                <td><a href="{{ route('admin.detaildata.show',$pinjam->id) }}" style="color: black;">{{ $pinjam->nama }}</a></td>
                                 <td>{{ $pinjam->pangkat }}</td>
                                 <td>{{ $pinjam->corps }}</td>
                                 <td>{{ $pinjam->nrp }}</td>
